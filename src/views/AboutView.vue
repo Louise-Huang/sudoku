@@ -8,7 +8,29 @@
         </tr>
       </table>
     </div>
+    <div class="col">
+      <table class="number-keyboard">
+        <tr>
+          <td class="keyboard-item" data-value="1" @click="setNumber">1</td>
+          <td class="keyboard-item" data-value="2" @click="setNumber">2</td>
+          <td class="keyboard-item" data-value="3" @click="setNumber">3</td>
+        </tr>
+        <tr>
+          <td class="keyboard-item" data-value="4" @click="setNumber">4</td>
+          <td class="keyboard-item" data-value="5" @click="setNumber">5</td>
+          <td class="keyboard-item" data-value="6" @click="setNumber">6</td>
+        </tr>
+        <tr>
+          <td class="keyboard-item" data-value="7" @click="setNumber">7</td>
+          <td class="keyboard-item" data-value="8" @click="setNumber">8</td>
+          <td class="keyboard-item" data-value="9" @click="setNumber">9</td>
+        </tr>
+      </table>
+    </div>
   </div>
+  <!-- <div class="about d-flex justify-content-left">
+
+  </div> -->
 </div>
 </template>
 <style lang="scss">
@@ -21,6 +43,9 @@
   }
   .relative-item{
     background-color: #F3EFE0;
+  }
+  .repeat-item{
+    background-color: #ea7070;
   }
 
   .main-table{
@@ -38,6 +63,7 @@
       height: 60px;
       font-size: 35px;
       border: 1px solid #aaa;
+      // background-color: #fff;
       &:nth-child(1), &:nth-child(4), &:nth-child(7){
         border-left: 2px solid #606c70;
       }
@@ -47,6 +73,22 @@
       &:hover{
         cursor: pointer;
       }
+    }
+  }
+  .number-keyboard{
+    width: 360px;
+    height: 360px;
+    // border: 1px solid red;
+    border-collapse: separate;
+    padding: 2px;
+    .keyboard-item{
+      // width: 30%;
+      // height: 30%;
+      cursor: pointer;
+      border: 3px solid #fff;
+      border-radius: .5rem;
+      background-color: #eee;
+      font-size: 45px;
     }
   }
 
@@ -94,6 +136,23 @@ export default {
       }
       console.log(`${groupChar}${groupNum}`)
       return `${groupChar}${groupNum}`
+    },
+    setNumber (e) {
+      const ele = document.getElementById(this.nowId)
+      ele.innerHTML = e.target.innerHTML
+      // validate group
+      this.group[this.nowGroup].forEach(item => {
+        const itemEle = document.getElementById(item)
+        if (item !== this.nowId && itemEle.innerHTML === e.target.innerHTML) {
+          console.log('重複了')
+          itemEle.classList.add('repeat-item')
+          ele.classList.add('repeat-item')
+        }
+      })
+      // validate row
+    },
+    validateNumber (thisCell) {
+
     },
     clickFunction (e) {
       console.log(e)
